@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
 	"url-shortener/internal/http-server/handlers/url/save"
 	"url-shortener/internal/http-server/handlers/url/save/mocks"
 	"url-shortener/internal/logger/handlers/slogdiscard"
@@ -74,15 +73,15 @@ func TestSaveHandler(t *testing.T) {
 
 			input := fmt.Sprintf(`{"url": "%s", "alias": "%s"}`, tc.url, tc.alias)
 
-			req, err := http.NewRequest(http.MethodPost, "/save", bytes.NewReader([]byte(input)))
+			req, err := http.NewRequest(http.MethodPost, "/url", bytes.NewReader([]byte(input)))
 			require.NoError(t, err)
 
-			rw := httptest.NewRecorder()
-			handler.ServeHTTP(rw, req)
+			rr := httptest.NewRecorder()
+			handler.ServeHTTP(rr, req)
 
-			require.Equal(t, rw.Code, http.StatusOK)
+			require.Equal(t, rr.Code, http.StatusOK)
 
-			body := rw.Body.String()
+			body := rr.Body.String()
 
 			var resp save.Response
 

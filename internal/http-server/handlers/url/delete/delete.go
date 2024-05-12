@@ -35,7 +35,7 @@ func New(log *slog.Logger, urlDeleter URLDeleter) http.HandlerFunc {
 			return
 		}
 
-		log.Info("request", slog.Any("alias", alias))
+		log.Info("request", slog.String("alias", alias))
 
 		err := urlDeleter.DeleteURL(alias)
 		if err != nil {
