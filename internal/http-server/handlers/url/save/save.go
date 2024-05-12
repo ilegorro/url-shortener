@@ -24,9 +24,12 @@ type Response struct {
 	Alias string `json:"alias,omitempty"`
 }
 
-// TODO: move ot config
+// TODO: move to config
 const aliasLength = 6
 
+// URLSaver is an interface for saving url with alias
+//
+//go:generate go run github.com/vektra/mockery/v2@v2.43.0 --name=URLSaver
 type URLSaver interface {
 	SaveURL(urlToSave string, alias string) (int64, error)
 }
